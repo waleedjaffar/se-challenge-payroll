@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180806093531) do
+ActiveRecord::Schema.define(version: 20180806093532) do
 
   create_table "job_groups", force: :cascade do |t|
     t.string   "name"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20180806093531) do
   create_table "time_reports", force: :cascade do |t|
     t.integer  "report_id"
     t.date     "date"
-    t.integer  "hours_worked"
+    t.float    "hours_worked"
     t.integer  "employee_id"
     t.string   "job_group"
     t.datetime "created_at",   null: false

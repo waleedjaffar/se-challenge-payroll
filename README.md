@@ -1,3 +1,50 @@
+## Assumptions:
+1. An employee will always belong to the same job group. However, amount paid is calculated appropriately if an employee has different job groups in the time report  
+2. For a given employee on a particular day, hours worked will always be upto 24 hours
+3. Date format will remain same in the CSV - d/mm/yyyy
+4. All fields and their values will not have leading and trailing spaces
+5. There are only two job groups and their hourly rates are fixed: A - $20, B - $30
+6. There will be minimal traffic to the application. However, if in case the traffic is huge, we can persist the payroll report
+
+## Design decisions:
+1. Designed only two tables - job_groups and time_reports. 
+2. I haven't created a separate table for employee as it has only one attribute. Therefore, no need to check for uniqueness of Emplyee ID.
+3. Rails root url is set to time_repots page. This page has option to upload a CSV Time Report and link to view the Payroll report.
+4. Used Service objects such that Controller is thin.
+5. Services are placed under app/ rather than lib/ as they are application specific.
+6. Used RSpec for testing.
+7. Used SimpleCov for measuring test coverage of the application.
+8. As per SimpleCov report, 93.84% of code is covered
+
+## Instructions on how to build/run your application
+
+prerequisite
+
+1. RVM (non mandatory)
+2. Ruby 2.3.0
+3. Rails 4.2.0
+4. Bundler
+
+Installation Steps
+
+1. If RVM is available
+   - Execute `rvm gemset create payroll` to create gem set specific to app.
+   - Execute `rvm use ruby-2.3.0@payroll` to select the gem set.
+2. Execute `bundle install` to install the gems required by the application.
+3. Execute `rake db:migrate` to create necessary tables
+4. Execute `rake db:seed` to create job groups "A" and "B"
+5. Execute `bundle exec rspec` for test report
+6. Execute `rails server` to run application in local server
+7. Application can be accessed by url: `http://localhost:3000/`
+8. Other URLs in application:
+   - Upload CSV: `http://localhost:3000/` & `http://localhost:3000/time_reports`
+   - List of Job Groups: `http://localhost:3000/job_groups`
+   - Payroll report: `http://localhost:3000/payroll_reports`
+
+## A paragraph or two about what you are particularly proud of in your implementation, and why
+
+Application is divided in two parts. One is to parse the Time Report CSV file and persist it to TimeReport table and the other one is to pull the data from TimeReport, process it and display as Payroll report. This seggregation allows the partner to choose between either uploading the CSV files or viewing the Payroll report. Moreover, application uses Services such that controllers are slim down.
+
 # Wave Software Development Challenge
 
 Applicants for the [Software

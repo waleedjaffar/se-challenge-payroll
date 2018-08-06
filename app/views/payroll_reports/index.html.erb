@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Payroll Reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>Pay Period</th>
+      <th>Amount Paid</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payroll_reports.each do |payroll_report| %>
+      <tr>
+        <td><%= payroll_report[:employee_id] %></td>
+        <td><%= payroll_report[:pay_period] %></td>
+        <td><%= number_to_currency(payroll_report[:amount_paid]) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

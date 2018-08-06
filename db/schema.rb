@@ -11,13 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180806032646) do
+ActiveRecord::Schema.define(version: 20180806093530) do
 
   create_table "job_groups", force: :cascade do |t|
     t.string   "name"
-    t.integer  "hour_rate"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "hour_rate",  default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
+
+  add_index "job_groups", ["name"], name: "index_job_groups_on_name", unique: true
 
 end

@@ -25,25 +25,20 @@ require 'rails_helper'
 
 RSpec.describe PayrollReportsController, type: :controller do
 
-  # This should return the minimal set of attributes required to create a valid
-  # PayrollReport. As you add validations to PayrollReport, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+  let(:time_reports) {
+    TimeReport.create([
+      {report_id: 1, date: '20/11/2016', hours_worked: 3, employee_id: 2, job_group: 'B'},
+      {report_id: 1, date: '14/11/2016', hours_worked: 5, employee_id: 1, job_group: 'A'},
+      {report_id: 1, date: '4/11/2016', hours_worked: 10, employee_id: 1, job_group: 'A'}
+    ])
   }
 
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  it "returns empty list as no time reports" do
+    expect(PayrollReportService.new.call.size).to eq(0)
+  end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # PayrollReportsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
-  describe "GET #index" do
-    it "returns a success response" do
-    # to fill
-    end
+  it "returns payroll report" do
+    expect(time_reports.count).to eq(3)
+    expect(PayrollReportService.new.call.size).to be > 0
   end
 end

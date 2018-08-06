@@ -31,6 +31,9 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
+Rails.application.load_seed
+
 RSpec.configure do |config|
 
   SimpleCov.start

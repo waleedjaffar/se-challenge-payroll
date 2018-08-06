@@ -50,4 +50,65 @@ RSpec.describe TimeReportsController, type: :controller do
       expect(time_report.errors[:job_group]).to eq(["can't be blank"])
     end
   end
+
+  describe 'CSV upload action empty file' do
+    before {
+      @empty_file = fixture_file_upload('files/payroll_empty.csv', 'text/csv')
+    }
+
+    it 'says has no data' do
+      request.accept = "application/json"
+      post :csv_upload, :csv_file => @empty_file
+      expect(response.body).to match(/csv file doesn't have any data/)
+      expect(response).to have_http_status(400)
+    end
+  end
+
+  describe 'CSV upload valid file' do
+    before {
+      @data_file1 = fixture_file_upload('files/payroll_sample1.csv', 'text/csv')
+      @data_file2 = fixture_file_upload('files/payroll_sample1.csv', 'text/csv')
+    }
+
+    it 'creates a time report' do
+      request.accept = "application/json"
+      post :csv_upload, :csv_file => @data_file1
+      expect(response.body).to match(/csv file process successfull/)
+      expect(response).to have_http_status(201)
+    end
+
+    it 'should say time report already created' do
+      request.accept = "application/json"
+      post :csv_upload, :csv_file => @data_file1
+      post :csv_upload, :csv_file => @data_file2
+      expect(response.body).to match(/Report already processed. Re-submit is not allowed/)
+      expect(response).to have_http_status(400)
+    end
+  end
+
+  describe 'CSV upload with no report id' do
+    before {
+      @no_report_data_file = fixture_file_upload('files/payroll_no_report_id.csv', 'text/csv')
+    }
+
+    it 'says report id missing' do
+      request.accept = "application/json"
+      post :csv_upload, :csv_file => @no_report_data_file
+      expect(response.body).to match(/Either report_id or data rows are missing/)
+      expect(response).to have_http_status(400)
+    end
+  end
+
+  describe 'CSV upload invalid file' do
+    before {
+      @error_data_file = fixture_file_upload('files/payroll_invalid.csv', 'text/csv')
+    }
+
+    it 'says error occured while processing' do
+      request.accept = "application/json"
+      post :csv_upload, :csv_file => @error_data_file
+      expect(response.body).to match(/Error occured while processing report/)
+      expect(response).to have_http_status(500)
+    end
+  end
 end

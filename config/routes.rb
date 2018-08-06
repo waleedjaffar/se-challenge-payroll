@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
-  resources :time_reports
 
-  resources :job_groups
+  resources :time_reports, only: [:index, :csv_upload] do
+    collection do
+      match :csv_upload, via: [:post]
+    end
+  end
+
+  resources :job_groups, only: [:index, :show]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

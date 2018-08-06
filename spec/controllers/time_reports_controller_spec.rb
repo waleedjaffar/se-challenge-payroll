@@ -25,15 +25,12 @@ require 'rails_helper'
 
 RSpec.describe TimeReportsController, type: :controller do
 
-  # This should return the minimal set of attributes required to create a valid
-  # TimeReport. As you add validations to TimeReport, be sure to
-  # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    { report_id: 1, date: '02-08-2018', hours_worked: 3, employee_id: 1, job_group: 'A' }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { report_id: 1, date: '02-08-2018', hours_worked: 3, employee_id: 1, job_group: nil }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -43,99 +40,14 @@ RSpec.describe TimeReportsController, type: :controller do
 
   describe "GET #index" do
     it "returns a success response" do
-      TimeReport.create! valid_attributes
+      time_report = TimeReport.create! valid_attributes
       get :index, {}, valid_session
-      expect(response).to be_successful
+      expect(response).to be_success
+    end
+
+    it "returns a failure message" do
+      time_report = TimeReport.create invalid_attributes
+      expect(time_report.errors[:job_group]).to eq(["can't be blank"])
     end
   end
-
-  describe "GET #show" do
-    it "returns a success response" do
-      time_report = TimeReport.create! valid_attributes
-      get :show, {:id => time_report.to_param}, valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET #new" do
-    it "returns a success response" do
-      get :new, {}, valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET #edit" do
-    it "returns a success response" do
-      time_report = TimeReport.create! valid_attributes
-      get :edit, {:id => time_report.to_param}, valid_session
-      expect(response).to be_successful
-    end
-  end
-
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new TimeReport" do
-        expect {
-          post :create, {:time_report => valid_attributes}, valid_session
-        }.to change(TimeReport, :count).by(1)
-      end
-
-      it "redirects to the created time_report" do
-        post :create, {:time_report => valid_attributes}, valid_session
-        expect(response).to redirect_to(TimeReport.last)
-      end
-    end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, {:time_report => invalid_attributes}, valid_session
-        expect(response).to be_successful
-      end
-    end
-  end
-
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested time_report" do
-        time_report = TimeReport.create! valid_attributes
-        put :update, {:id => time_report.to_param, :time_report => new_attributes}, valid_session
-        time_report.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "redirects to the time_report" do
-        time_report = TimeReport.create! valid_attributes
-        put :update, {:id => time_report.to_param, :time_report => valid_attributes}, valid_session
-        expect(response).to redirect_to(time_report)
-      end
-    end
-
-    context "with invalid params" do
-      it "returns a success response (i.e. to display the 'edit' template)" do
-        time_report = TimeReport.create! valid_attributes
-        put :update, {:id => time_report.to_param, :time_report => invalid_attributes}, valid_session
-        expect(response).to be_successful
-      end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested time_report" do
-      time_report = TimeReport.create! valid_attributes
-      expect {
-        delete :destroy, {:id => time_report.to_param}, valid_session
-      }.to change(TimeReport, :count).by(-1)
-    end
-
-    it "redirects to the time_reports list" do
-      time_report = TimeReport.create! valid_attributes
-      delete :destroy, {:id => time_report.to_param}, valid_session
-      expect(response).to redirect_to(time_reports_url)
-    end
-  end
-
 end

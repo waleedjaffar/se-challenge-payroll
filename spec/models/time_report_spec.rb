@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe TimeReport, type: :model do
 
-  let(:time_report) { TimeReport.new(report_id: 1, date: '02-08-2018', hours_worked: 3, employee_id: 1, job_group: 'A') }
+  let(:time_report) { TimeReport.new(report_id: 1, date: '2/08/2018', hours_worked: 3, employee_id: 1, job_group: 'A') }
   
   it 'report_id is mandatory' do
     time_report.report_id = nil

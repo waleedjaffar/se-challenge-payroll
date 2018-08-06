@@ -26,11 +26,11 @@ require 'rails_helper'
 RSpec.describe TimeReportsController, type: :controller do
 
   let(:valid_attributes) {
-    { report_id: 1, date: '02-08-2018', hours_worked: 3, employee_id: 1, job_group: 'A' }
+    { report_id: 1, date: '2/08/2018', hours_worked: 3, employee_id: 1, job_group: 'A' }
   }
 
   let(:invalid_attributes) {
-    { report_id: 1, date: '02-08-2018', hours_worked: 3, employee_id: 1, job_group: nil }
+    { report_id: 1, date: '2/08/2018', hours_worked: 3, employee_id: 1, job_group: nil }
   }
 
   # This should return the minimal set of values that should be in the session

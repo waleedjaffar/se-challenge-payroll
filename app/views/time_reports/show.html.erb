@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Report:</strong>
+  <%= @time_report.report_id %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @time_report.date %>
+</p>
+
+<p>
+  <strong>Hours worked:</strong>
+  <%= @time_report.hours_worked %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @time_report.employee_id %>
+</p>
+
+<p>
+  <strong>Job group:</strong>
+  <%= @time_report.job_group %>
+</p>
+
+<%= link_to 'Edit', edit_time_report_path(@time_report) %> |
+<%= link_to 'Back', time_reports_path %>

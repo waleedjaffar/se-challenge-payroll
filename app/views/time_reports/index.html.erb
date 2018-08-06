@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Time Reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Report</th>
+      <th>Date</th>
+      <th>Hours worked</th>
+      <th>Employee</th>
+      <th>Job group</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @time_reports.each do |time_report| %>
+      <tr>
+        <td><%= time_report.report_id %></td>
+        <td><%= time_report.date %></td>
+        <td><%= time_report.hours_worked %></td>
+        <td><%= time_report.employee_id %></td>
+        <td><%= time_report.job_group %></td>
+        <td><%= link_to 'Show', time_report %></td>
+        <td><%= link_to 'Edit', edit_time_report_path(time_report) %></td>
+        <td><%= link_to 'Destroy', time_report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Time report', new_time_report_path %>

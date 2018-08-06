@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180806093530) do
+ActiveRecord::Schema.define(version: 20180806093531) do
 
   create_table "job_groups", force: :cascade do |t|
     t.string   "name"
@@ -21,5 +21,15 @@ ActiveRecord::Schema.define(version: 20180806093530) do
   end
 
   add_index "job_groups", ["name"], name: "index_job_groups_on_name", unique: true
+
+  create_table "time_reports", force: :cascade do |t|
+    t.integer  "report_id"
+    t.date     "date"
+    t.integer  "hours_worked"
+    t.integer  "employee_id"
+    t.string   "job_group"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
 end
